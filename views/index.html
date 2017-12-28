@@ -1,43 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>Christopher's MARTA Route Information</title>
+        <title>Christopher's MARTA Route Information</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/marta/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/marta/css/style.css" />
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="/marta/js/script.js" defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9V8YGNmoMW_GFbIC5K0az8TsE9ZvSjA&callback=initMap" defer></script>
-</head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js" defer="defer"></script>
+        <script src="/marta/js/script.js" defer="defer"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9V8YGNmoMW_GFbIC5K0az8TsE9ZvSjA&callback=initMap" defer="defer"></script>
+    </head>
 
-<body>
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8">
-                        <table class="table table-bordered">
-                            <thead>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8">
-                        <div id="map"></div>
-                    </div>
-                </div>
+    <body>
+        <div class="wrapper">
+            <div class="top">
+                <table class="table table-bordered">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
+            <div id="map" class="bottom"></div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>
