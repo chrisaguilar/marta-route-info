@@ -1,6 +1,5 @@
-body {
-    padding-top: 1em;
-    padding-bottom: 1em;
+html, body {
+    height: 100%;
 }
 
 #map {
