@@ -4,7 +4,7 @@
 Because the MARTA Android app is ridiculously slow.
 
 ## How
-It's very simple. Vanilla JS, four lines of CSS, and some very basic Bootstrap
+It's very simple. Vanilla JS, some simple CSS, and some very basic Bootstrap
 power the frontend. The only external libraries I use are Axios (to fetch the
 data from my API) and the Google Maps API (to ... load Google Maps).
 
