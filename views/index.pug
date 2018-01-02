@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+
+        title MARTA Route Information
+
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.4/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/marta/css/style.css")
+
+        script(src="https://unpkg.com/axios/dist/axios.min.js", defer="defer")
+        script(src="/marta/js/script.js", defer="defer")
+        script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9V8YGNmoMW_GFbIC5K0az8TsE9ZvSjA&callback=initMap", defer="defer")
+    body
+        .container
+            .row.justify-content-center
+                .col-12.col-lg-8
+                    table.table.table-bordered
+                        thead
+                        tbody
+            .row.justify-content-center
+                .col-12.col-lg-8
+                    #map
