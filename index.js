@@ -7,6 +7,10 @@ const app = express();
 // Set the "views" directory
 app.set('views', join(__dirname, 'views'));
 
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
 // Mount the static files on the root path
 app.use('/', express.static(join(__dirname, 'public')));
 
