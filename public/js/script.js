@@ -1,4 +1,63 @@
-async function initMap() {
+// So they can be distinguished from one another.
+const colors = {
+    "55": "blue",
+    "192": "green",
+    "193": "red",
+    "195": "purple"
+};
+
+async function drawBusMarkers(map) {
+    try {
+        // Load the bus locations from the API.
+        const { data } = await axios('/marta/api/bus/locations');
+
+        // Create a marker for each bus on the map.
+        Object.entries(data).forEach(([route, buses]) => {
+            buses.forEach(({ DIRECTION: d, LATITUDE: lat, LONGITUDE: lng }) => {
+                new google.maps.Marker({
+                    icon: {
+                        // Get a 'north' or 'south' image based on the bus' direction.
+                        url: `/marta/images/${route}/${d.toLowerCase()}.svg`,
+                        // Scale the image to 25x25
+                        scaledSize: new google.maps.Size(25, 25)
+                    },
+                    // Give Google Maps the position of the bus
+                    position: { lat: Number(lat), lng: Number(lng) },
+                    // Give Google Maps the map we want to put the markers on
+                    map: map
+                });
+            });
+        });
+    } catch (e) {
+        // There's an error; log it to the console.
+        console.error(e);
+    }
+}
+
+async function drawBusRoutes(map) {
+    try {
+        // Get the bus routes from the API.
+        const { data } = await axios('/marta/api/bus/routes');
+
+        // Draw lines for each path
+        Object.entries(data).forEach(([route, paths]) => {
+             paths.forEach(path => {
+                 (new google.maps.Polyline({
+                     path: path,
+                     geodesic: true,
+                     strokeColor: colors[route],
+                     strokeOpacity: 0.5,
+                     strokeWeight: 2
+                 })).setMap(map);
+             });
+        });
+    } catch (e) {
+        // There's an error; log it to the console.
+        console.error(e);
+    }
+}
+
+function initMap() {
     // My Coordinates.
     const home = { lat: 33.6, lng: -84.366 };
 
@@ -14,29 +73,11 @@ async function initMap() {
         map: map
     });
 
-    try {
-        // Load the data from the API.
-        const { data } = await axios('/marta/api/bus');
+    // Plot bus markers onto the map
+    drawBusMarkers(map);
 
-        // Create a marker for each bus on the map.
-        const markers = data.map(({ DIRECTION, LATITUDE, LONGITUDE }) => {
-            const marker = new google.maps.Marker({
-                icon: {
-                    // Get a 'north' or 'south' image based on the bus' direction.
-                    url: `/marta/images/${DIRECTION === 'Northbound' ? 'north' : 'south'}.svg`,
-                    // Scale the image to 25x25
-                    scaledSize: new google.maps.Size(25, 25)
-                },
-                // Give Google Maps the position of the bus
-                position: { lat: Number(LATITUDE), lng: Number(LONGITUDE) },
-                // Give Google Maps the map we want to put the markers on
-                map: map
-            });
-        });
-    } catch (e) {
-        // There's an error; log it to the console.
-        console.error(e);
-    }
+    // Draw bus routes onto the map
+    drawBusRoutes(map);
 }
 
 (async function loadRail() {

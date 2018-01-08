@@ -7,17 +7,28 @@ const router = express.Router();
 // from the MARTA developer API and relays that information to the client on
 // my site. Nothing magical here.
 
-router.get('/bus', async (req, res, next) => {
-    try {
-        const { data } = await axios({
-            baseURL: 'http://developer.itsmarta.com/',
-            url: '/BRDRestService/RestBusRealTimeService/GetBusByRoute/193'
-        });
+router.get('/bus/locations', async (req, res, next) => {
+    const routes = [55, 192, 193, 195];
+    const response = {};
 
-        res.json(data);
+    try {
+        for (const route of routes) {
+            const { data } = await axios({
+                baseURL: 'http://developer.itsmarta.com/',
+                url: `/BRDRestService/RestBusRealTimeService/GetBusByRoute/${route}`
+            });
+            response[route] = data;
+        }
+
+        res.json(response);
     } catch (e) {
         next(e);
     }
+});
+
+router.get('/bus/routes', (req, res) => {
+    const routes = require('../data/json/my_routes.json');
+    res.json(routes);
 });
 
 router.get('/rail', async (req, res, next) => {

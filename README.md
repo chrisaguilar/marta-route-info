@@ -12,8 +12,12 @@ On the backend, I use Express to create a simple sub-app that I mount to a
 server. I use Axios to fetch the API data from the MARTA developer API, and I
 just relay the information to the frontend with no manipulation.
 
+For mapping the bus routes, I have several scripts in `data/scripts` that
+download the GTFS data from MARTA and transform the CSV into JSON. Then, on
+the front end, I pass the JSON to the Google Maps API.
+
 I didn't use any transpilation like Babel or anything, and I used things like
-Async/Await, and object destructuring, so this is probably only gonna work in a
+`async/await`, and object destructuring, so this is probably only gonna work in a
 modern browser. It's for personal use and I *personally* use Google Chrome, so
 that's that.
 
