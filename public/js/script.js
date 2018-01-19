@@ -12,8 +12,8 @@ async function drawBusMarkers(map) {
         const { data } = await axios('/marta/api/bus/locations');
 
         // Create a marker for each bus on the map.
-        Object.entries(data).forEach(([route, buses]) => {
-            buses.forEach(({ DIRECTION: d, LATITUDE: lat, LONGITUDE: lng }) => {
+        for (const [ route, buses ] of Object.entries(data)) {
+            for (const { DIRECTION: d, LATITUDE: lat, LOGITUDE: lng } of buses) {
                 new google.maps.Marker({
                     icon: {
                         // Get a 'north' or 'south' image based on the bus' direction.
@@ -26,8 +26,8 @@ async function drawBusMarkers(map) {
                     // Give Google Maps the map we want to put the markers on
                     map: map
                 });
-            });
-        });
+            }
+        }
     } catch (e) {
         // There's an error; log it to the console.
         console.error(e);
@@ -40,17 +40,17 @@ async function drawBusRoutes(map) {
         const { data } = await axios('/marta/api/bus/routes');
 
         // Draw lines for each path
-        Object.entries(data).forEach(([route, paths]) => {
-             paths.forEach(path => {
-                 (new google.maps.Polyline({
-                     path: path,
-                     geodesic: true,
-                     strokeColor: colors[route],
-                     strokeOpacity: 0.5,
-                     strokeWeight: 2
-                 })).setMap(map);
-             });
-        });
+        for (const [route, paths] of Object.entries(data)) {
+            for (const path of paths) {
+                (new google.maps.Polyline({
+                    path: path,
+                    geodesic: true,
+                    strokeColor: colors[route],
+                    strokeOpacity: 0.5,
+                    strokeWeight: 2
+                })).setMap(map);
+            }
+        }
     } catch (e) {
         // There's an error; log it to the console.
         console.error(e);
