@@ -17,7 +17,7 @@ const writeFile = util.promisify(fs.writeFile);
 
         for (const [route_id, data] of Object.entries(mergedData)) {
             mergedData[route_id].shapes = [];
-            mergedData[route_id].color = randomcolor.getColor({ shades: ['800', '900'] });
+            mergedData[route_id].color = randomcolor.getColor({ shades: ['600', '700', '800', '900'] });
             mergedData[route_id].trips = [...new Set(data.trips).values()];
 
             for (const trip of mergedData[route_id].trips) {
