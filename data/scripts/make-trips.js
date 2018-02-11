@@ -24,10 +24,10 @@ async function main() {
             // Reduce the information to a single object
             .reduce((data, [route_id, service_id, trip_id, trip_headsign, direction_id, block_id, shape_id]) => {
                 // if data[route_id] doesn't exist then set it to an empty array
-                if (!data[route_id]) data[route_id] = [];
+                if (!data[route_id]) data[route_id] = { trips: [] };
 
                 // Push the shape_id string to data[route_id]
-                data[route_id].push(shape_id);
+                data[route_id].trips.push(shape_id);
 
                 // Pass the modified data to the next run
                 return data;

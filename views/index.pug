@@ -7,24 +7,36 @@ html(lang="en")
 
         title MARTA Route Information
 
-        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
         link(rel="stylesheet", href="/marta/css/style.css")
 
         script(src="https://unpkg.com/axios/dist/axios.min.js", defer="defer")
+        script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js", defer="defer")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js", defer="defer")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js", defer="defer")
+        script(src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js", defer="defer")
         script(src="/marta/js/script.js", defer="defer")
         script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9V8YGNmoMW_GFbIC5K0az8TsE9ZvSjA&callback=initMap", defer="defer")
     body
-        .container
-            .row.justify-content-center
-                .col-12.col-lg-8
-                    table.table.table-bordered
-                        thead
-                        tbody
-            .row.justify-content-center.text-center
-                .col-2(style="color: blue;") Route 55
-                .col-2(style="color: green;") Route 192
-                .col-2(style="color: red;") Route 193
-                .col-2(style="color: purple;") Route 195
-            .row.justify-content-center
-                .col-12.col-lg-8
-                    #map
+        #app.container
+            .row: .col-12: ul.nav.nav-tabs(rold="tablist")
+                li.nav-item: a.nav-link.active(data-toggle="tab", href="#bus") Buses
+                li.nav-item: a.nav-link(data-toggle="tab", href="#rail") Trains
+
+            .row: .col-12: .tab-content
+                #bus.tab-pane.fade.show.active
+                    .row: .col-12: h3 Buses
+                    .row: .col-12: .input-group
+                        select#bus-options.custom-select
+                        #bus-add-route.input-group-append
+                            button.btn.btn-outline-secondary(type="button") Add Route
+                    .row: .col-12: #bus-labels.text-center
+                    .row: .col-12: #bus-map
+                #rail.tab-pane.fade
+                    .row: .col-12: h3 Trains
+                    .row: .col-12: .input-group
+                        select#rail-options.custom-select
+                        #rail-add-station.input-group-append
+                            button.btn.btn-outline-secondary(type="button") Add Station
+                    .row: .col-12: ul#rail-tabs.nav.nav-tabs(role="tablist")
+                    .row: .col-12: #rail-tables.tab-content
