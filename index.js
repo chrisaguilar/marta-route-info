@@ -17,5 +17,8 @@ app.use('/', express.static(join(__dirname, 'public')));
 // Mount the api on the '/api' path.
 app.use('/api', require('./routes/api'));
 
+require('./data/scripts/timer-bus')();
+require('./data/scripts/timer-rail')();
+
 // Export the app as a sub-app
 module.exports = app;
