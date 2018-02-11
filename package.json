@@ -1,0 +1,27 @@
+{
+    "name": "marta-route-info",
+    "version": "1.0.0",
+    "description": "## Why Because the MARTA Android app is ridiculously slow.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chrisaguilar/marta-route-info.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chrisaguilar/marta-route-info/issues"
+    },
+    "homepage": "https://github.com/chrisaguilar/marta-route-info#readme",
+    "dependencies": {
+        "axios": "^0.17.1",
+        "dotenv": "^5.0.0",
+        "lodash": "^4.17.5",
+        "pug": "^2.0.0-rc.4",
+        "random-material-color": "^1.0.3"
+    }
+}
