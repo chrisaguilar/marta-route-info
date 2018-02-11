@@ -21,5 +21,9 @@ router.get('/routes', (req, res) => {
     res.json(response);
 });
 
+router.get('/:bus', (req, res) => {
+    const data = require('../data/data.json');
+    res.json(data[req.params.bus]);
+});
 
 module.exports = router;
