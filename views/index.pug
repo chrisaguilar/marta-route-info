@@ -19,32 +19,24 @@ html(lang="en")
         script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU9V8YGNmoMW_GFbIC5K0az8TsE9ZvSjA&callback=initMap", defer="defer")
     body
         #app.container
-            #rail.row
-                .col-12
-                    ul.nav.nav-tabs(role="tablist")
-                        li.nav-item: a.nav-link(data-toggle="tab", href="#home") Home
-                        li.nav-item: a.nav-link(data-toggle="tab", href="#menu1") Menu 1
-                        li.nav-item: a.nav-link(data-toggle="tab", href="#menu2") Menu2
-                    .tab-content
-                        #home.container.tab-pane.fade
-                            h3 HOME
-                            p Whaddup from Home y'all!
-                        #menu1.container.tab-pane.fade
-                            h3 MENU 1
-                            p HEY
-                        #menu2.container.tab-pane.fade
-                            h3 MENU 2
-                            p whassup
+            .row: .col-12: ul.nav.nav-tabs(rold="tablist")
+                li.nav-item: a.nav-link.active(data-toggle="tab", href="#bus") Buses
+                li.nav-item: a.nav-link(data-toggle="tab", href="#rail") Trains
 
-            .row
-                .col-12
-                    .input-group
+            .row: .col-12: .tab-content
+                #bus.tab-pane.fade.show.active
+                    .row: .col-12: h3 Buses
+                    .row: .col-12: .input-group
                         select#bus-options.custom-select
                         #bus-add-route.input-group-append
-                            button.btn.btn-outline-secondary(type="button") Add Bus Route
-
-            #bus.row
-                .col-12
-                    #bus-labels.text-center
-                .col-12
-                    #bus-map
+                            button.btn.btn-outline-secondary(type="button") Add Route
+                    .row: .col-12: #bus-labels.text-center
+                    .row: .col-12: #bus-map
+                #rail.tab-pane.fade
+                    .row: .col-12: h3 Trains
+                    .row: .col-12: .input-group
+                        select#rail-options.custom-select
+                        #rail-add-station.input-group-append
+                            button.btn.btn-outline-secondary(type="button") Add Station
+                    .row: .col-12: ul#rail-tabs.nav.nav-tabs(role="tablist")
+                    .row: .col-12: #rail-tables.tab-content

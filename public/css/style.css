@@ -1,22 +1,26 @@
-#app > .row {
-    margin-top: 1rem;
-}
-
-#bus-labels {
-    margin-bottom: 1rem;
+.row {
+    margin-top: 0.5rem;
 }
 
 #bus-map {
     width: 100%;
-    height: 500px;
+    height: 600px;
 }
 
 
-.label {
+.bus-label {
     cursor: pointer;
+    font-weight: bold;
 }
 
-.label > span {
-    font-weight: bold;
+.remove-bus-label {
     margin-left: 0.5rem;
+}
+
+.remove-rail {
+    margin-left: 0.5rem;
+}
+
+#rail-tabs {
+    font-weight: bold;
 }

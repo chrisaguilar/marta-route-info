@@ -1,99 +1,3 @@
-/*
-    (async function loadRail() {
-        function extractInfo(data, station) {
-            // For all of the data in `data`
-            return data
-                // Get only the stations that match parameter `station`
-                .filter(({ STATION }) => STATION === station)
-                // Get the relevant information and return it as an array
-                .map(({ DIRECTION: direction, NEXT_ARR: nextArr, STATION: station, WAITING_TIME: waitingTime }) => [
-                    // Title-case the station name
-*/
-                    //station.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
-/*
-                    // Give a better direction name
-                    direction === 'N' ? 'North' : 'South',
-                    waitingTime,
-                    nextArr
-                ]);
-        }
-
-        function makeTableHeaders() {
-            // Define the table headers.
-            const headers = ['Station', 'Direction', 'Waiting Time', 'Next Arrival'];
-
-            // Get the <thead /> element in our HTML because that's where table headers go.
-            const thead = document.querySelector('thead');
-            // The headers will exist in one <tr /> element.
-            const tr = document.createElement('tr');
-
-            // For every header in `headers`
-            for (const header of headers) {
-                // Create a new <th /> element
-                const th = document.createElement('th');
-                // Set it's text to `header`
-                th.textContent = header;
-                // Do some Bootstrap stuff
-                th.setAttribute('scope', 'col');
-                th.className = 'text-center';
-                // Append <th /> to <tr />
-                tr.appendChild(th);
-            }
-
-            // Append our headers to the <thead /> element.
-            thead.appendChild(tr);
-
-            // I could just do this in the HTML but then the headers would be there
-            // with no information. I don't like the sound of that, so why not
-            // dynamically load them in once I get the response from the API?
-        }
-
-        function makeTableRows(stations) {
-            // Get the <tbody /> element because that's where our data goes.
-            const tbody = document.querySelector('tbody');
-
-            // For every `station` sub-array in the `stations` array
-            for (const station of stations) {
-                // Create a new <tr /> because we have one row / station
-                const tr = document.createElement('tr');
-
-                // For every element of the `station` sub-array
-                for (const field of station) {
-                    // Create a new <td /> element
-                    const td = document.createElement('td');
-                    // Set its text to the current field
-                    td.textContent = field;
-                    // Do some Bootstrap stuff
-                    td.className = 'text-center';
-                    // Append it to <tr />
-                    tr.appendChild(td);
-                }
-
-                // Append the new station row to <tbody />
-                tbody.appendChild(tr);
-            }
-        }
-
-        try {
-            // Load the data from the API.
-            const { data } = await axios('/marta/api/rail');
-
-            // Get the relevant information for North Ave. Station and East Point Station.
-            const northAvenue = extractInfo(data, 'NORTH AVE STATION');
-            const eastPoint = extractInfo(data, 'EAST POINT STATION');
-
-            // Put our table headers in the DOM.
-            makeTableHeaders();
-
-            // Put the table rows in the DOM.
-            makeTableRows([...northAvenue, ...eastPoint]);
-        } catch (e) {
-            // There was an error; log it to the console.
-            console.error(e);
-        }
-    })();
-*/
-
 // region VARIABLES
 const directions = {
     eastbound: 'M409.133,109.203c-19.608-33.592-46.205-60.189-79.798-79.796C295.736,9.801,259.058,0,219.273,0 c-39.781,0-76.47,9.801-110.063,29.407c-33.595,19.604-60.192,46.201-79.8,79.796C9.801,142.8,0,179.489,0,219.267 c0,39.78,9.804,76.463,29.407,110.062c19.607,33.592,46.204,60.189,79.799,79.798c33.597,19.605,70.283,29.407,110.063,29.407 s76.47-9.802,110.065-29.407c33.593-19.602,60.189-46.206,79.795-79.798c19.603-33.596,29.403-70.284,29.403-110.062 C438.533,179.485,428.732,142.795,409.133,109.203z M334.332,232.111L204.71,361.736c-3.617,3.613-7.896,5.428-12.847,5.428 c-4.952,0-9.235-1.814-12.85-5.428l-29.121-29.13c-3.617-3.613-5.426-7.898-5.426-12.847c0-4.941,1.809-9.232,5.426-12.847 l87.653-87.646l-87.657-87.65c-3.617-3.612-5.426-7.898-5.426-12.845c0-4.949,1.809-9.231,5.426-12.847l29.121-29.13 c3.619-3.615,7.898-5.424,12.85-5.424c4.95,0,9.233,1.809,12.85,5.424l129.622,129.621c3.613,3.614,5.42,7.898,5.42,12.847 C339.752,224.213,337.945,228.498,334.332,232.111z',
@@ -102,6 +6,16 @@ const directions = {
     westbound: 'M409.133,109.203c-19.608-33.592-46.205-60.189-79.798-79.796C295.736,9.801,259.058,0,219.273,0 c-39.781,0-76.47,9.801-110.063,29.407c-33.595,19.604-60.192,46.201-79.8,79.796C9.801,142.8,0,179.489,0,219.267 c0,39.78,9.804,76.463,29.407,110.062c19.607,33.592,46.204,60.189,79.799,79.798c33.597,19.605,70.283,29.407,110.063,29.407 s76.47-9.802,110.065-29.407c33.593-19.602,60.189-46.206,79.795-79.798c19.603-33.596,29.403-70.284,29.403-110.062 C438.533,179.485,428.732,142.795,409.133,109.203z M288.646,306.913c3.621,3.614,5.435,7.901,5.435,12.847 c0,4.948-1.813,9.236-5.435,12.847l-29.126,29.13c-3.61,3.617-7.891,5.428-12.84,5.421c-4.951,0-9.232-1.811-12.854-5.421 L104.21,232.111c-3.617-3.62-5.424-7.898-5.424-12.848c0-4.949,1.807-9.233,5.424-12.847L233.826,76.795 c3.621-3.615,7.902-5.424,12.854-5.424c4.949,0,9.229,1.809,12.84,5.424l29.126,29.13c3.621,3.615,5.435,7.898,5.435,12.847 c0,4.946-1.813,9.233-5.435,12.845l-87.646,87.65L288.646,306.913z'
 };
 // endregion VARIABLES
+
+// region GLOBALS
+function initMap () {
+    bus.initMap();
+}
+
+function titleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+// endregion GLOBALS
 
 // region BUS
 const bus = {
@@ -132,8 +46,8 @@ const bus = {
             row.forEach(label => {
                 const labelData = JSON.parse(localStorage.getItem(label) || '{}');
                 const routeEl = $(`
-                    <div class="col-3 label" data-route="${label}" style="color:${labelData.color}">
-                        Route ${label}<span>&times;</span>
+                    <div class="col-3" data-route="${label}" style="color:${labelData.color}">
+                        <span class="bus-label"> Route ${label}<span class="remove-bus-label">&times;</span></span>
                     </div>
                 `);
                 rowEl.append(routeEl);
@@ -223,30 +137,148 @@ const bus = {
         localStorage.setItem('buses used', JSON.stringify(this.used));
         this.update();
     },
-    render: function () {
-        this.makeMarkers();
-        this.makePolylines();
-    },
     update: function () {
         this.makeLabels();
+        this.makeMarkers();
         this.makeOpts();
-        this.render();
+        this.makePolylines();
     }
 };
 
 // endregion BUS
 
-function onLoad () {
-    bus.used = JSON.parse(localStorage.getItem('buses used') || '[]')
-    bus.update();
-}
+// region RAIL
+const rail = {
+    used: [],
+    unused: [],
+    add: function (station) {
+        this.used.push(station);
+        this.unused = this.unused.filter(e => e !== station);
+        localStorage.setItem('stations used', JSON.stringify(this.used));
+        this.update();
+    },
+    makeOpts: async function () {
+        try {
+            const railOptionsEl = $("#rail-options");
+            railOptionsEl.empty();
+            railOptionsEl.append($(`<option selected="selected" disabled="disabled">Select Station to Add...</option>`));
 
-function initMap () {
-    bus.initMap();
-}
+            if (!localStorage.getItem('train stations')) {
+                const { data } = await axios('/marta/api/rail/realtime');
+                const stations = [...new Set(data.map(e => titleCase(e.STATION)).sort()).values()];
+                localStorage.setItem('train stations', JSON.stringify(stations));
+            }
+
+            const trainStations = JSON.parse(localStorage.getItem('train stations'));
+
+            for (const station of trainStations) {
+                if (!this.used.includes(station)) {
+                    railOptionsEl.append(`<option value="${station}">${station.replace(/ Station/g, '')}</option>`);
+                }
+            }
+
+        } catch (e) {
+            console.error(e);
+            alert('There was a problem fetching the station names.');
+        }
+    },
+    makeTables: async function() {
+        try {
+            const railTablesEl = $("#rail-tables");
+            railTablesEl.empty();
+
+            const data = (await axios('/marta/api/rail/realtime')).data
+                .filter(e => this.used.includes(titleCase(e.STATION)))
+                .reduce((obj, next) => {
+                    const station = titleCase(next.STATION);
+                    if (!obj[station]) obj[station] = [];
+                    obj[station].push(next);
+
+                    return obj;
+                }, {});
+
+            for (const station of this.used) {
+                const stationNoSpace = station.split(/\s*/g).join('');
+                const stationTableEl = $(`
+                    <div id="${stationNoSpace}" class="tab-pane fade">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Line</th>
+                                    <th class="text-center" scope="col">Direction</th>
+                                    <th class="text-center" scope="col">Waiting Time</th>
+                                    <th class="text-center" scope="col">Next Arrival</th>
+                                </tr>
+                            </thead>
+                            <tbody id="${stationNoSpace}-body"></tbody>
+                        </table>
+                    </div>
+                `);
+                railTablesEl.append(stationTableEl);
+
+                const stationTableBody = $(`#${stationNoSpace}-body`);
+                const nextArrivals = data[station];
+                nextArrivals.forEach(next => {
+                    const { LINE, DIRECTION, WAITING_TIME, NEXT_ARR } = next;
+                    const longDirection = d => {
+                        switch(d) {
+                            case 'E': return 'East';
+                            case 'N': return 'North';
+                            case 'S': return 'South';
+                            case 'W': return 'West';
+                        }
+                    };
+                    const body = $(`
+                        <tr class="text-center">
+                            <td>${titleCase(LINE)}</td>
+                            <td>${longDirection(DIRECTION)}</td>
+                            <td>${WAITING_TIME}</td>
+                            <td>${NEXT_ARR}</td>
+                        </tr>
+                    `);
+                    stationTableBody.append(body);
+                });
+            }
+
+            $("#rail-tables > :first-child").addClass("active show");
+
+        } catch (e) {
+            console.error(e);
+            alert('Error while building station tables!');
+        }
+    },
+    makeTabs: function() {
+        const railTabsEl = $("#rail-tabs");
+        railTabsEl.empty();
+
+        for (const station of this.used) {
+            const sansStation = station.replace(/ Station/g, '');
+            const stationNoSpace = station.split(/\s*/g).join('');
+            const tab = $(`
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" data-station="${station}" href="#${stationNoSpace}">${sansStation} <span class="remove-rail text-danger">&times;</span></a>
+                </li>
+            `);
+            railTabsEl.append(tab);
+        }
+
+        $("#rail-tabs > li:first-child > a").addClass("active");
+    },
+    remove: function (station) {
+        this.unused.push(station);
+        this.used = this.used.filter(e => e !== station);
+        localStorage.setItem('stations used', JSON.stringify(this.used));
+        this.update();
+    },
+    update: function () {
+        this.makeOpts();
+        this.makeTables();
+        this.makeTabs();
+    }
+};
+// endregion RAIL
 
 // region EVENT HANDLERS
-
 $('#bus-add-route').on('click', async function () {
     try {
         const route = $("#bus-options").val();
@@ -264,12 +296,35 @@ $('#bus-add-route').on('click', async function () {
     }
 });
 
-$(document.body).on('click', '.label', function() {
-    const route = $(this).data('route');
+$(document.body).on('click', '.bus-label', function() {
+    const route = $(this).parent().data('route');
     localStorage.removeItem(`${route}`);
     bus.remove(`${route}`);
 });
 
-$(document).ready(onLoad);
+$('#rail-add-station').on('click', async function () {
+    try {
+        const station = $("#rail-options").val();
 
+        if (!station) return;
+
+        rail.add(station);
+    } catch (e) {
+        console.error(e);
+        alert('There was a problem adding that station.');
+    }
+});
+
+$(document.body).on('click', '.remove-rail', function() {
+    const station = $(this).parent().data('station');
+     rail.remove(station);
+});
+
+$(document).ready(function () {
+    bus.used = JSON.parse(localStorage.getItem('buses used') || '[]')
+    bus.update();
+
+    rail.used = JSON.parse(localStorage.getItem('stations used') || '[]');
+    rail.update();
+});
 // endregion EVENT HANDLERS
