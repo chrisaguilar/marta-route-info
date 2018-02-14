@@ -1,29 +1,49 @@
+const fs = require('fs');
+const { promisify } = require('util');
+
 const axios = require('axios');
 const express = require('express');
 
+const readFile = promisify(fs.readFile);
+
 const router = express.Router();
 
-router.get('/realtime', (req, res) => {
-    const data = require('../data/bus.json');
-    res.json(data);
-});
-
-router.get('/routes', (req, res) => {
-    const data = require('../data/data.json');
-    const response = {};
-
-    for (const [route, obj] of Object.entries(data)) {
-        if (!['GOLD', 'RED', 'GREEN', 'BLUE'].includes(route)) {
-            response[route] = obj.route_long_name;
-        }
+router.get('/realtime', async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile('../data/bus.json', 'utf8'));
+        res.json(data);
+    } catch (e) {
+        console.error(e);
+        next(e);
     }
-
-    res.json(response);
 });
 
-router.get('/:bus', (req, res) => {
-    const data = require('../data/data.json');
-    res.json(data[req.params.bus]);
+router.get('/routes', async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile('../data/data.json', 'utf8'));
+        const response = {};
+
+        for (const [route, obj] of Object.entries(data)) {
+            if (!['GOLD', 'RED', 'GREEN', 'BLUE'].includes(route)) {
+                response[route] = obj.route_long_name;
+            }
+        }
+
+        res.json(response);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+router.get('/:bus', async (req, res, next) => {
+    try {
+        const data = JSON.parse(await readFile('../data/data.json', 'utf8'));
+        res.json(data[req.params.bus]);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
 });
 
 module.exports = router;
