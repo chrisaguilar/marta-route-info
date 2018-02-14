@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { promisify } = require('util');
 
 const axios = require('axios');
@@ -6,11 +7,14 @@ const express = require('express');
 
 const readFile = promisify(fs.readFile);
 
+const busFile = path.join(__dirname, '../data/bus.json');
+const dataFile = path.join(__dirname, '../data/data.json');
+
 const router = express.Router();
 
 router.get('/realtime', async (req, res, next) => {
     try {
-        const data = JSON.parse(await readFile('../data/bus.json', 'utf8'));
+        const data = JSON.parse(await readFile(busFile, 'utf8'));
         res.json(data);
     } catch (e) {
         console.error(e);
@@ -20,7 +24,7 @@ router.get('/realtime', async (req, res, next) => {
 
 router.get('/routes', async (req, res, next) => {
     try {
-        const data = JSON.parse(await readFile('../data/data.json', 'utf8'));
+        const data = JSON.parse(await readFile(dataFile, 'utf8'));
         const response = {};
 
         for (const [route, obj] of Object.entries(data)) {
@@ -38,7 +42,7 @@ router.get('/routes', async (req, res, next) => {
 
 router.get('/:bus', async (req, res, next) => {
     try {
-        const data = JSON.parse(await readFile('../data/data.json', 'utf8'));
+        const data = JSON.parse(await readFile(dataFile, 'utf8'));
         res.json(data[req.params.bus]);
     } catch (e) {
         console.error(e);
