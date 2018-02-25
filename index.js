@@ -4,21 +4,17 @@ const express = require('express');
 
 const app = express();
 
-// Set the "views" directory
-app.set('views', join(__dirname, 'views'));
+app.set('port', parseInt(process.env.PORT, 10));
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
+app.set('view engine', 'pug');
+app.set('views', join(__dirname, 'client', 'views'));
 
-// Mount the static files on the root path
-app.use('/', express.static(join(__dirname, 'public')));
+app.get('/', (req, res) => res.render('index'));
+app.use('/', express.static(join(__dirname, 'client')));
 
-// Mount the api on the '/api' path.
-app.use('/api', require('./routes/api'));
+app.use('/api', require('./server/routes/api'));
 
-require('./data/scripts/timer-bus')();
-require('./data/scripts/timer-rail')();
+require('./server/data/scripts/timer-bus')();
+require('./server/data/scripts/timer-rail')();
 
-// Export the app as a sub-app
-module.exports = app;
+app.listen(app.get('port'), () => console.log(`/marta listening on ${app.get('port')}`));
