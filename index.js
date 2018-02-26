@@ -14,7 +14,4 @@ app.use('/', express.static(join(__dirname, 'client')));
 
 app.use('/api', require('./server/routes/api'));
 
-require('./server/data/scripts/timer-bus')();
-require('./server/data/scripts/timer-rail')();
-
 app.listen(app.get('port'), () => console.log(`/marta listening on ${app.get('port')}`));
