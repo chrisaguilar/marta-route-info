@@ -63,26 +63,27 @@ const bus = {
             const data = (await axios('/marta/api/bus/realtime')).data.filter(e => this.used.includes(e.ROUTE));
 
             for (const bus of data) {
-                const metadata = JSON.parse(localStorage.getItem(bus.ROUTE));
+                const { DIRECTION: dir, LATITUDE: lat, LONGITUDE: lon, ROUTE: route } = bus;
+                const metadata = JSON.parse(localStorage.getItem(route));
                 this.markers.push(
                     new google.maps.Marker({
                         map: this.map,
                         icon: {
-                            path: directions[bus.DIRECTION.toLowerCase()],
+                            path: directions[dir.toLowerCase()],
                             fillColor: metadata.color,
                             fillOpacity: 1.0,
-                            scale: 0.05
+                            scale: 0.05,
                         },
                         position: {
-                            lat: Number(bus.LATITUDE),
-                            lng: Number(bus.LONGITUDE)
+                            lat: +lat,
+                            lng: +lon
                         }
                     })
                 );
             }
         } catch (e) {
             console.error(e);
-            alert('There was an error rendering the map markers. Please try again.');
+            console.error('There was an error rendering the map markers.');
         }
     },
     makePolylines: async function () {
@@ -128,7 +129,7 @@ const bus = {
 
         } catch (e) {
             console.error(e);
-            alert('There was a problem fetching the route names.');
+            console.error('There was a problem fetching the route names.');
         }
     },
     remove: function (route) {
@@ -179,7 +180,7 @@ const rail = {
 
         } catch (e) {
             console.error(e);
-            alert('There was a problem fetching the station names.');
+            console.error('There was a problem fetching the station names.');
         }
     },
     makeTables: async function() {
@@ -244,7 +245,7 @@ const rail = {
 
         } catch (e) {
             console.error(e);
-            alert('Error while building station tables!');
+            console.error('Error while building station tables!');
         }
     },
     makeTabs: function() {
@@ -256,7 +257,9 @@ const rail = {
             const stationNoSpace = station.split(/\s*/g).join('');
             const tab = $(`
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" data-station="${station}" href="#${stationNoSpace}">${sansStation} <span class="remove-rail text-danger">&times;</span></a>
+                    <a class="nav-link" data-toggle="tab" data-station="${station}" href="#${stationNoSpace}">
+                        ${sansStation} <span class="remove-rail text-danger">&times;</span>
+                    </a>
                 </li>
             `);
             railTabsEl.append(tab);
