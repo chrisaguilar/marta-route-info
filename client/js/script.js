@@ -30,11 +30,11 @@ const bus = {
         this.update();
     },
     initMap: function () {
-        const home = { lat: 33.6, lng: -84.366 };
-
-        this.map = new google.maps.Map(document.getElementById('bus-map'), { zoom: 13, center: home });
-
-        const homeMarker = new google.maps.Marker({ map: this.map, position: home});
+        navigator.geolocation.getCurrentPosition(position => {
+            const { latitude: lat, longitude: lng } = position.coords;
+            this.map = new google.maps.Map(document.getElementById('bus-map'), { zoom: 13, center: { lat, lng } });
+            const currentPositionMarker = new google.maps.Marker({ map: this.map, position: { lat, lng }});
+        });
     },
     makeLabels: function () {
         const labelEl = $("#bus-labels");
