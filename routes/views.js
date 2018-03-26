@@ -1,8 +1,9 @@
+const { join } = require('path');
+
 const express = require('express');
 
 const router = express.Router();
 
-router.use('/bus', require('./bus'));
-router.use('/rail', require('./rail'));
+router.get('/', (req, res) => res.render('index'));
 
 module.exports = router;

@@ -1,17 +1,16 @@
 const { join } = require('path');
 
 const express = require('express');
+const routes = require('./routes');
 
 const app = express();
 
-app.set('port', parseInt(process.env.PORT, 10));
-
 app.set('view engine', 'pug');
-app.set('views', join(__dirname, 'client', 'views'));
+app.set('views', join(__dirname, 'views'));
 
-app.get('/', (req, res) => res.render('index'));
-app.use('/', express.static(join(__dirname, 'client')));
+app.use('/api/bus', routes.api.bus);
+app.use('/api/rail', routes.api.rail);
+app.use('/', routes.views);
+app.use('/', routes.public);
 
-app.use('/api', require('./server/routes/api'));
-
-app.listen(app.get('port'), () => console.log(`/marta listening on ${app.get('port')}`));
+module.exports = app;

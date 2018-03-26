@@ -7,7 +7,7 @@ const express = require('express');
 
 const readFile = promisify(fs.readFile);
 
-const railFile = path.join(__dirname, '../data/rail.json');
+const railFile = path.join(__dirname, '..', '..', 'db', 'rail.json');
 
 const router = express.Router();
 

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const axios = require('axios');
+const axios = require('axios').default;
 
 const writeFile = util.promisify(fs.writeFile);
 

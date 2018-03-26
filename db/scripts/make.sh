@@ -2,6 +2,10 @@
 
 set -e
 
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+cd ${dir}
+
 curl -Os "http://www.itsmarta.com/google_transit_feed/google_transit.zip"
 
 unzip -qq -d ../gtfs google_transit.zip

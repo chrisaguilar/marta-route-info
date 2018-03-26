@@ -7,8 +7,8 @@ const express = require('express');
 
 const readFile = promisify(fs.readFile);
 
-const busFile = path.join(__dirname, '../data/bus.json');
-const dataFile = path.join(__dirname, '../data/data.json');
+const busFile = path.join(__dirname, '..', '..', 'db', 'bus.json');
+const dataFile = path.join(__dirname, '..', '..', 'db', 'data.json');
 
 const router = express.Router();
 
